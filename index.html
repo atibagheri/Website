@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Atefeh's personal website">
+    <title>Atefeh Bagheri</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Full-screen background */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+        }
+
+        /* Header (Logo + Navigation) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black; /* light blue navbar */
+            color: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            transition: opacity 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4; /* Light background for the hero section */
+            margin-top: 70px; /* Added margin to prevent content overlap due to fixed header */
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px; /* Increased width by 1cm (approx. 100px) */
+            width: 100%;
+            height: 500px; /* Adjust as needed */
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+
+        .slideshow {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%; /* Ensure slideshow takes full height of container */
+
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column; /* Stack image and note vertically */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            position: relative; /* For positioning the note */
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* Ensure the entire image is visible */
+            border-radius: 15px;
+            display: block;
+            max-height: 80%;
+        }
+
+        /* Navigation Buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            color: Black;
+            font-weight: bold;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%; /* Circular buttons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+   /* Slide Note */
+        .slide-note {
+            position: absolute;
+            bottom: -10px; /* Position at the bottom of the slide */
+            left: 0;
+            Width:100%;
+            text-align: center;
+            color: black; /* Text color */
+            font-size: 1.2em; /* Font size */
+            padding: 10px 0; /* Padding for better readability */
+            z-index: 2; /* Ensure the note is above the image */
+}
+
+        .prev {
+            left: 10px; /* Positioned to the left of the slideshow */
+        }
+
+        .next {
+            right: 10px; /* Positioned to the right of the slideshow */
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Dots for Image Count */
+        .dots-container {
+            position: absolute;
+            bottom: 25px; /* Positioned just below the slideshow */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            cursor: pointer;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.5); /* Darker dots for better visibility */
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: rgba(0, 0, 0, 1); /* Highlight active dot */
+        }
+
+        /* About Section */
+        .about-content {
+            background-color: #fff;
+            padding: 50px 20px;
+            text-align: left;
+            margin-top: 30px;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #333;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #0077b5;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Portfolio Section */
+        .portfolio-content {
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 50px;
+            background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+            max-width: 1200px;
+            margin: 50px auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .audio-player,
+        .video-player {
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .portfolio-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Papers and Posters Section */
+        .papers-container,
+        .posters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .paper-item,
+        .poster-item {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .paper-item:hover,
+        .poster-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .paper-item img,
+        .poster-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .paper-item h3,
+        .poster-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+
+        .paper-item p,
+        .poster-item p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .paper-item a,
+        .poster-item a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .paper-item a:hover,
+        .poster-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-card img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .skill-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .skill-description {
+            color: #555;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 50px 20px;
+            margin-top: 70px; /* To account for the fixed header */
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 3em; /* Larger heading */
+            margin-bottom: 40px; /* More space below heading */
+            color: #333; /* Darker color for better contrast */
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* More space between elements */
+            align-items: center;
+        }
+
+        .contact-info p {
+            font-size: 1.3em; /* Larger text */
+            color: #555;
+            line-height: 1.8; /* More line spacing */
+        }
+
+        .social-media-links {
+            display: flex;
+            justify-content: space-between; /* Distribute space between items */
+            align-items: center; /* Vertically center items */
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto; /* Center the container */
+            padding: 20px; /* Add padding */
+            background-color: rgba(255, 255, 255, 0.9); /* Slight white background */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .social-media-links .email {
+            flex: 1; /* Take up remaining space on the left */
+            text-align: left; /* Align text to the left */
+            margin: 0; /* Remove default margin */
+            font-weight: bold; /* Make email bold */
+            color: #0077b5; /* Blue color for email */
+            font-size: 1.2em; /* Larger font size */
+        }
+
+        .social-media-links a {
+            text-decoration: none; /* Remove underline */
+            color: #333; /* Default link color */
+            font-size: 1.3em; /* Larger links */
+            font-weight: bold; /* Make links bold */
+            margin: 0 30px; /* More spacing between links */
+            transition: color 0.3s ease; /* Smooth hover effect */
+        }
+
+        .social-media-links a:hover {
+            color: #0077b5; /* Change color on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .about-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .portfolio-title {
+                font-size: 2em;
+            }
+
+            .audio-player,
+            .video-player {
+                width: 90%;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .social-media-links {
+                flex-direction: column;
+                gap: 20px; /* More space between stacked items */
+                padding: 15px; /* Adjust padding for smaller screens */
+            }
+
+            .social-media-links .email {
+                text-align: center; /* Center email on smaller screens */
+            }
+
+            .papers-container,
+            .posters-container {
+                grid-template-columns: 1fr;
+            }
+
+            .slideshow-container {
+                max-width: 90%; /* Adjust slideshow width for smaller screens */
+            }
+
+            .prev {
+                left: 5px; /* Adjust button position for smaller screens */
+            }
+
+            .next {
+                right: 5px; /* Adjust button position for smaller screens */
+            }
+        }
+    </style>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header with logo and navigation -->
+    <header>
+        <h1 class="logo">Atefeh Bagheri</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact" id="contact-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main section with hero text -->
+    <main>
+      <div class="hero">
+    <div class="slideshow-container">
+        <div class="slideshow">
+            <!-- Slide 1 -->
+            <div class="slide">
+                <img src="https://usegalaxy.org/api/datasets/f9cad7b01a47213587da850eb31735ad/display?to_ext=png" alt="Slide 1">
+                <div class="slide-note">TRNA-seq-based imputed protein abundance effectively mitigates extreme outliers, ensuring more reliable protein quantification.</div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135995054a56eca7280/display?to_ext=png" alt="Slide 2">
+                <div class="slide-note">Differential gene expression patterns and enriched pathways in response to glucose concentration(10 mmol/L) and diabetic conditions(5 mmol/L).</div>
+            </div>
+            <!-- Slide 3 -->
+          
+            <div class="slide">
+                <img src="https://usegalaxy.org/api/datasets/f9cad7b01a47213547bad29f9a8e2f8a/display?to_ext=png" alt="Slide 3">
+                <div class="slide-note">Isoform abundance is unevenly distributed between the nucleus and cytoplasm:exon exhibits a higher inclusion level in the cytoplasm compared to the nucleus in the FHC cell line</div>
+            </div>
+        </div>
+        <!-- Navigation Buttons -->
+        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+        <a class="next" onclick="moveSlide(1)">&#10095;</a>
+    </div>
+    <!-- Dots for Image Count -->
+    <div class="dots-container"></div>
+</div>
+
+        <!-- About Section -->
+        <div id="about" class="about-content">
+            <div class="about-container">
+                <img src="https://usegalaxy.org/api/datasets/f9cad7b01a4721356e7ba8f7b4e73ec1/display?to_ext=jpg" alt="Atefeh" class="about-image">
+                <div class="about-text">
+                    <h2>About me</h2>
+                    <p>Hello! My name is Atefeh Bagheri, and I am a PhD student in Bioinformatics at Cleveland State University.</p>
+                    <p>My work focuses on using computational tools to analyze biological data, uncover patterns, and solve complex problems in genomics and biomedical research. With expertise in programming, statistics, and biological sciences, I enjoy developing algorithms and software to advance scientific discoveries.</p>
+                    <p>Beyond my studies, I am always looking for new challenges in coding and problem-solving. Whether it's optimizing data pipelines, writing efficient scripts, or exploring machine learning applications in bioinformatics, I am driven by curiosity and the desire to innovate.</p>
+                    <p>My goal is to contribute to meaningful projects and continue growing in a dynamic environment. With adaptability, a strong ability to learn quickly, and a passion for coding, I am eager to collaborate and make a positive impact in any project I take on.</p>
+                    <!-- Social Icons -->
+                    <div class="social-icons">
+                        <a href="https://scholar.google.com/citations?hl=en&user=sOVSDToAAAAJ" target="_blank"><i class="fab fa-google"></i></a>
+                        <a href="https://github.com/atibagheri" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/a-bagheri-0814a886/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Section -->
+        <div id="portfolio" class="portfolio-content">
+            <h2 class="portfolio-title">My Portfolio</h2>
+            <div class="portfolio-container">
+                <!-- Papers Section -->
+                <h3>Published Papers</h3>
+                <div class="papers-container">
+                    <!-- Paper 1 -->
+                    <div class="paper-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a47213559e9cf55720f2a7f/display?to_ext=png" alt="Paper 1 Thumbnail">
+                        <p>Abstract: Chronic hyperglycemia alters human aortic smooth muscle cells (HASMCs), increasing proliferation, F-actin expression, and cell size while reducing stiffness and membrane tension. T2DM-derived SMCs (T2DM-SMCs) showed more pronounced pro-inflammatory markers (IL-6, IL-8, IL-23) and reduced growth factors (VEGF-A, PDGF-AA). Gene and pathway analyses revealed upregulated inflammatory signaling and ECM remodeling in T2DM-SMCs. These findings suggest hyperglycemia-driven vascular remodeling contributes to T2DM-related CVD, highlighting differences between in vitro models and patient-derived cells.</p>
+                        <a href="https://link.springer.com/article/10.1186/s13036-024-00457-w" target="_blank">Read Paper</a>
+                    </div>
+                    <!-- Paper 2 -->
+                    <div class="paper-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a4721352a10902094021a56/display?to_ext=png" alt="Paper 2 Thumbnail">
+                        <p>Abstract: We investigated the correlation between mRNA and protein levels using 17 immune and wound healing mediators in canine volumetric muscle loss. While mRNA and protein levels aligned within the same experimental condition, individual gene correlations varied across conditions, highlighting challenges in translating RNA-seq data to protein changes. To address this, we developed a machine learning model that accurately predicts protein abundances from RNA-seq, correcting extreme outliers in antibody-based assays and detecting post-translational modifications, such as activated TGF-β1. Our approach enhances RNA-seq-based protein estimation, offering insights into gene regulation and biological function.</p>
+                        <a href="https://doi.org/10.1093/nargab/lqae019" target="_blank">Read Paper</a>
+                    </div>
+                    <!-- Paper 3 -->
+                    <div class="paper-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a4721354f4436c4e4641323/display?to_ext=png" alt="Paper 3 Thumbnail">
+                        <p>Abstract: RNA-seq has been widely used as a high-throughput method to characterize transcript dynamic changes in a broad context, such as development and diseases. However, whether RNA-seq-estimated transcriptional dynamics can be translated into protein level changes is largely unknown. Ribo-seq (Ribosome profiling) is an emerging technology that allows for the investigation of the translational footprint via profiling ribosome-bounded mRNA fragments. Ribo-seq coupled with RNA-seq will allow us to understand the transcriptional and translational control of the fundamental biological process and human diseases. This review focuses on discussing the principle, workflow, and applications of Ribo-seq to study human diseases.</p>
+                        <a href="https://doi.org/10.3390/cells11192966" target="_blank">Read Paper</a>
+                    </div>
+                <!-- Paper 4 -->
+                    <div class="paper-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a4721357f94162f3a52892b/display?to_ext=png" alt="Paper 4 Thumbnail">
+                        <p>Abstract: RNA-seq has been widely used as a high-throughput method to characterize transcript dynamic changes in a broad context, such as development and diseases. However, whether RNA-seq-estimated transcriptional dynamics can be translated into protein level changes is largely unknown. Ribo-seq (Ribosome profiling) is an emerging technology that allows for the investigation of the translational footprint via profiling ribosome-bounded mRNA fragments. Ribo-seq coupled with RNA-seq will allow us to understand the transcriptional and translational control of the fundamental biological process and human diseases. This review focuses on discussing the principle, workflow, and applications of Ribo-seq to study human diseases.</p>
+                        <a href="https://doi.org/10.1016/j.compbiolchem.2022.107795" target="_blank">Read Paper</a>
+                    </div>
+
+                    <!-- Paper 5 -->
+                    <div class="paper-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135577d2cad1fa7577a/display?to_ext=png" alt="Paper 5 Thumbnail">
+                        <p>Abstract: RNA-seq has been widely used as a high-throughput method to characterize transcript dynamic changes in a broad context, such as development and diseases. However, whether RNA-seq-estimated transcriptional dynamics can be translated into protein level changes is largely unknown. Ribo-seq (Ribosome profiling) is an emerging technology that allows for the investigation of the translational footprint via profiling ribosome-bounded mRNA fragments. Ribo-seq coupled with RNA-seq will allow us to understand the transcriptional and translational control of the fundamental biological process and human diseases. This review focuses on discussing the principle, workflow, and applications of Ribo-seq to study human diseases.</p>
+                        <a href="https://doi.org/10.1101/2024.12.22.629974" target="_blank">Read Paper</a>
+                    </div>
+                </div>
+
+                <!-- Posters Section -->
+                <h3>Posters</h3>
+                <div class="posters-container">
+                    <!-- Poster 1 -->
+                    <div class="poster-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a4721354d83aa4f148bf1cd/display?to_ext=jpg" alt="Poster 1">
+                        <h3>Transcriptomic activity of Telomerase during tissue regeneration</h3>
+                        <a href="https://usegalaxy.org/api/datasets/f9cad7b01a4721354d83aa4f148bf1cd/display?to_ext=jpg" target="_blank">Download Poster</a>
+                    </div>
+                    <!-- Poster 2 -->
+                    <div class="poster-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135ef48120ac5e5be17/display?to_ext=jpg" alt="Poster 2">
+                        <h3>Investigation of Transcriptomic Dynamics During wound healing</h3>
+                        <a href="https://usegalaxy.org/api/datasets/f9cad7b01a472135ef48120ac5e5be17/display?to_ext=jpg" target="_blank">Download Poster</a>
+                    </div>
+                    <!-- Poster 3 -->
+                    <div class="poster-item">
+                        <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135286ed237ce141957/display?to_ext=jpg" alt="Poster 3">
+                        <h3>Unraveling relationship between mRNA and protein</h3>
+                        <a href="https://usegalaxy.org/api/datasets/f9cad7b01a472135286ed237ce141957/display?to_ext=jpg" target="_blank">Download Poster</a>
+                    </div>
+                </div>
+
+                <!-- Video (Membrane Protein Simulation) -->
+                <h3>Membrane Protein Simulation</h3>
+                <p>Extracellular Hepatitis Virus Protein Interactions with Sphingomyelin (SM) and POPC(1-palmitoyl-2-oleoyl-sn-glycero-3-phosphocholine) </p>
+                <video class="video-player" controls>
+                    <source src="https://usegalaxy.org/api/datasets/f9cad7b01a472135c75bf4ed83478150/display?to_ext=mp4" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135db63dda1eda1e163/display?to_ext=jpg" alt="Machine Learning">
+                    <div class="skill-title">Machine Learning/Deep Learning</div>
+                    <div class="skill-description">Supervised & Unsupervised Learning, Deep Learning, Feature Engineering & Model Optimization</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135e2ebc864488d036f/display?to_ext=jpg" alt="Omics Data Analysis">
+                    <div class="skill-title">Omics Data Analysis</div>
+                    <div class="skill-description">Genomics, Transcriptomics, Proteomics, and Metabolomics data including RNA-seq, ChIP-seq, Single-Cell RNA-seq, and Ribose sequencing</div>
+                </div>
+                <div class="skill-card">
+                    <img src="/Users/student/Downloads/download.jpeg" alt="Molecular Dynamics (MD) Simulation">
+                    <div class="skill-title">Molecular Dynamics (MD) Simulation</div>
+                    <div class="skill-description">GROMACS, NAMD, CHARMM-GUI, VMD, Chimera</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://usegalaxy.org/api/datasets/f9cad7b01a472135c379cdaa623f4be8/display?to_ext=jpg" alt="Programming Languages">
+                    <div class="skill-title">Programming Languages</div>
+                    <div class="skill-description">Python, R, HTML, CSS, Shiny for data analysis, automation, and pipeline development.</div>
+                </div>
+                <div class="skill-card">
+                    <img src="/Users/student/Downloads/frontpage.gif" alt="Genomic Resources">
+                    <div class="skill-title">Genomic Resources & Annotation Expertise</div>
+                    <div class="skill-description">NCBI RefSeq, Ensembl, UCSC Genome Browser, GTF/GFF file handling for gene annotation and isoform analysis</div>
+                </div>
+                <div class="skill-card">
+                    <img src="/Users/student/Downloads/download (1).jpeg" alt="HPC">
+                    <div class="skill-title">HPC & Systems Orchestration</div>
+                    <div class="skill-description">High-Performance Computing (HPC) environments, including the Ohio Supercomputer Center (OSC), with advanced proficiency in Linux systems and seamless Docker orchestration for optimized workflow</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h2>Let's Get in Touch</h2>
+            <div class="contact-info">
+                <p>If you have any questions, I would love to answer them.</p>
+            </div>
+            <div class="social-media-links">
+                <p class="email">bagheri.atefeh22@gmail.com</p>
+                <a href="https://github.com/atibagheri" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/a-bagheri-0814a886/" target="_blank">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Slideshow functionality
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+
+            // Move slides
+            const offset = -slideIndex * 100;
+            document.querySelector('.slideshow').style.transform = `translateX(${offset}%)`;
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === slideIndex);
+            });
+        }
+
+        function moveSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+        }
+
+        function goToSlide(index) {
+            slideIndex = index;
+            showSlide(slideIndex);
+        }
+
+        // Automatically move to the next slide every 5 seconds
+        setInterval(() => moveSlide(1), 5000);
+
+        // Function to initialize dots based on the number of slides
+        function initializeDots() {
+            const slides = document.querySelectorAll('.slide');
+            const dotsContainer = document.querySelector('.dots-container');
+
+            console.log('Slides found:', slides.length); // Debug
+            console.log('Dots container:', dotsContainer); // Debug
+
+            if (!dotsContainer) {
+                console.error('Dots container not found!');
+                return;
+            }
+
+            dotsContainer.innerHTML = '';
+
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            if (dotsContainer.firstChild) {
+                dotsContainer.firstChild.classList.add('active');
+            } else {
+                console.error('No dots were created!');
+            }
+        }
+
+        // Call the function to initialize dots when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeDots();
+        });
+
+        // Function to show only the Contact section and hide others
+        document.getElementById('contact-link').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+
+            // Hide all sections
+            document.querySelectorAll('main > *').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show only the Contact section
+            document.getElementById('contact').style.display = 'block';
+
+            // Scroll to the Contact section
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Function to reset the page (show all sections)
+        function resetPage() {
+            document.querySelectorAll('main > *').forEach(section => {
+                section.style.display = 'block';
+            });
+        }
+
+        // Reset the page when clicking other navigation links
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            if (!link.getAttribute('href').includes('contact')) {
+                link.addEventListener('click', resetPage);
+            }
+        });
+    </script>
+</body>
+</html>
